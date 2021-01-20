@@ -1,0 +1,56 @@
+from tkinter import *
+#Глобальні змінні
+#Налаштування вікна
+WIDTH = 900
+HEIGHT = 300
+#Налаштування ракеток
+#Ширина ракетки
+PAD_W = 10
+#Висота ракетки
+PAD_H = 100
+#Налаштування м'яча
+#Радіус м'яча
+BALL_RADIUS = 40
+#швидкість мяча
+#горизонтально
+BALL_X_CHANGE = 20
+#вертикально
+BALL_Y_CHANGE = 0
+#Вікно
+root = Tk()
+root.title("Пінг-понг :) ")
+#canvas
+c = Canvas(root, width=WIDTH,  height=HEIGHT,  background="#191970" )
+c.pack()
+#Елементи ігрового поля
+#Ліва лінія
+c.create_line(PAD_W, 0, PAD_W, HEIGHT, fill="white")
+#Права лінія
+c.create_line(WIDTH- PAD_W, 0, WIDTH- PAD_W, HEIGHT, fill="white")
+#Розділення ігрового поля
+c.create_line(WIDTH/2, 0, WIDTH/2, HEIGHT, fill="white")
+#мяч
+BALL = c.create_oval(WIDTH/2-BALL_RADIUS/2,
+                     HEIGHT/2-BALL_RADIUS/2,
+                     WIDTH/2+BALL_RADIUS/2,
+                     HEIGHT/2+BALL_RADIUS/2, fill="#800000")
+#ракетки
+#ліва ракетка
+LEFT_PAD = c.create_line(PAD_W/2, 0, PAD_W/2, PAD_H, width=PAD_W, fill="#F4A460")
+#права ракетка
+RIGHT_PAD = c.create_line(WIDTH-PAD_W/2, 0, WIDTH-PAD_W/2, PAD_H, width=PAD_W, fill="#F4A460")
+
+#функції руху м'яча
+def move_ball():
+    c.move(BALL, BALL_X_CHANGE, BALL_Y_CHANGE)
+
+    def main():
+        move_ball()
+        #викликаєм саму себе
+        root.after(30, main)
+#Запуск
+    main()
+
+
+#запуск вікна
+root.mainloop()
